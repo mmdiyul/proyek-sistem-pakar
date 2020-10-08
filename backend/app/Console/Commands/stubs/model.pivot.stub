@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Console\Commands\Stubs;
+
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
+class DummyClass extends Pivot
+{
+    //
+}
