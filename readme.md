@@ -9,4 +9,6 @@
 ## Teknologi yang digunakan
 
 - Perhitungan klasifikasi dengan menggunakan library yang ada di `python`
-- Aplikasi web menggunakan `laravel`
+- Aplikasi web :
+  - Backend menggunakan `lumen`
+  - Frontend menggunakan `angular`
