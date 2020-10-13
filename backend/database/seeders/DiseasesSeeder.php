@@ -25,8 +25,7 @@ class DiseasesSeeder extends Seeder
             ['id' => 6, 'code' => 'P6', 'name' => 'Dermatitis', 'solution' => 'Identifikasi penyebab alergi jika ada, antibiotik mandi dengan shampoo anti bakteri/jamur 2x seminggu'],
             ['id' => 7, 'code' => 'P7', 'name' => 'Enteritis', 'solution' => 'Makanan halus/lunak, makanan khusus pencernaan, antibiotik, anti diare, obat cacing'],
             ['id' => 8, 'code' => 'P8', 'name' => 'Otitis', 'solution' => 'Bersihkan telinga dengan pembersih telinga, obat tetes telinga dan anti radang'],
-            ['id' => 9, 'code' => 'P9', 'name' => 'Sehat', 'solution' => 'Mandi 1 – 2 minggu sekali tergantung
-            tingkat kekotoran, vaksinasi rutin, cek dokter tiap 3 bulan'],
+            ['id' => 9, 'code' => 'P9', 'name' => 'Sehat', 'solution' => 'Mandi 1 – 2 minggu sekali tergantung tingkat kekotoran, vaksinasi rutin, cek dokter tiap 3 bulan'],
         ];
 
         DB::table('diseases')->insert($diseases);
