@@ -16,3 +16,18 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/api', function () {
+    return response()->json(['message' => 'API works and well served!']);
+});
+
+$router->group(['prefix' => 'api'], function () use ($router) {
+    // roles
+    $router->group(['prefix' => 'roles'], function () use ($router) {
+        $router->get('/', 'RolesController@index');
+        $router->get('/{id}', 'RolesController@show');
+        $router->post('/', 'RolesController@store');
+        $router->put('/{id}', 'RolesController@update');
+        $router->delete('/{id}', 'RolesController@destroy');
+    }); 
+});
