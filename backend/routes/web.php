@@ -29,5 +29,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('/', 'RolesController@store');
         $router->put('/{id}', 'RolesController@update');
         $router->delete('/{id}', 'RolesController@destroy');
-    }); 
+    });
+
+    // roles
+    $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->get('/', 'UserController@index');
+        $router->get('/{id}', 'UserController@show');
+        $router->post('/', 'UserController@store');
+        $router->put('/{id}', 'UserController@update');
+        $router->delete('/{id}', 'UserController@destroy');
+    });
 });
