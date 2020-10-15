@@ -3,9 +3,12 @@ namespace App;
 
 use App\Roles;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
