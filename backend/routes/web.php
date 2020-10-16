@@ -21,6 +21,10 @@ $router->get('/api', function () {
     return response()->json(['message' => 'API works and well served!']);
 });
 
+$router->group(['prefix' => 'auth'], function () use ($router) {
+    $router->post('/login', 'AuthController@authenticate');
+});
+
 $router->group(['prefix' => 'api'], function () use ($router) {
     // roles
     $router->group(['prefix' => 'roles'], function () use ($router) {

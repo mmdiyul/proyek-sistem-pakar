@@ -39,6 +39,11 @@ class User extends Model
         'password'
     ];
 
+    public static function findByEmailOrUsername($data)
+    {
+        return User::where('email', $data)->orWhere('username', $data)->first();
+    }
+
     public function role()
     {
         return $this->belongsTo(Roles::class, 'role_id');
