@@ -44,5 +44,23 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->put('/{id}', 'UserController@update');
             $router->delete('/{id}', 'UserController@destroy');
         });
+
+        // symptoms
+        $router->group(['prefix' => 'symptoms'], function () use ($router) {
+            $router->get('/', 'SymptomsController@index');
+            $router->get('/{id}', 'SymptomsController@show');
+            $router->post('/', 'SymptomsController@store');
+            $router->put('/{id}', 'SymptomsController@update');
+            $router->delete('/{id}', 'SymptomsController@destroy');
+        });
+    
+        // symptoms
+        $router->group(['prefix' => 'users'], function () use ($router) {
+            $router->get('/', 'UserController@index');
+            $router->get('/{id}', 'UserController@show');
+            $router->post('/', 'UserController@store');
+            $router->put('/{id}', 'UserController@update');
+            $router->delete('/{id}', 'UserController@destroy');
+        });
     });
 });
