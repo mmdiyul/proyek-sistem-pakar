@@ -26,21 +26,23 @@ $router->group(['prefix' => 'auth'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    // roles
-    $router->group(['prefix' => 'roles'], function () use ($router) {
-        $router->get('/', 'RolesController@index');
-        $router->get('/{id}', 'RolesController@show');
-        $router->post('/', 'RolesController@store');
-        $router->put('/{id}', 'RolesController@update');
-        $router->delete('/{id}', 'RolesController@destroy');
-    });
-
-    // roles
-    $router->group(['prefix' => 'users'], function () use ($router) {
-        $router->get('/', 'UserController@index');
-        $router->get('/{id}', 'UserController@show');
-        $router->post('/', 'UserController@store');
-        $router->put('/{id}', 'UserController@update');
-        $router->delete('/{id}', 'UserController@destroy');
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        // roles
+        $router->group(['prefix' => 'roles'], function () use ($router) {
+            $router->get('/', 'RolesController@index');
+            $router->get('/{id}', 'RolesController@show');
+            $router->post('/', 'RolesController@store');
+            $router->put('/{id}', 'RolesController@update');
+            $router->delete('/{id}', 'RolesController@destroy');
+        });
+    
+        // roles
+        $router->group(['prefix' => 'users'], function () use ($router) {
+            $router->get('/', 'UserController@index');
+            $router->get('/{id}', 'UserController@show');
+            $router->post('/', 'UserController@store');
+            $router->put('/{id}', 'UserController@update');
+            $router->delete('/{id}', 'UserController@destroy');
+        });
     });
 });

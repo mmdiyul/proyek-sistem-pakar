@@ -4,6 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Firebase\JWT\ExpiredException;
+use Firebase\JWT\SignatureInvalidException;
+use Firebase\JWT\JWT;
+use App\User;
 
 class Authenticate
 {
@@ -33,12 +37,23 @@ class Authenticate
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle($request, Closure $next)
     {
-        if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+        $token = $request->bearerToken();
+        
+        if (!$token) {
+            return response()->json(['message' => 'Token not provided'], 401);
         }
 
+        try {
+            $payload = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
+        } catch (ExpiredException $e) {
+            return response()->json(['message' => 'Token expired'], 401);
+        } catch (SignatureInvalidException $e) {
+            return response()->json(['message' => 'Invalid token'], 400);
+        }
+
+        $request->user = User::find($payload->sub);
         return $next($request);
     }
 }
