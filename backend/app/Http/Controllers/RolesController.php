@@ -72,6 +72,6 @@ class RolesController extends Controller
 
         $role->delete();
 
-        return response("Roles with id: $id deleted!");
+        return response(['message' => "Roles with id: $id deleted!"]);
     }
 }
