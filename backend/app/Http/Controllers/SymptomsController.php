@@ -35,7 +35,6 @@ class SymptomsController extends Controller
         $this->validate($request, [
             'code'      => 'required | string | unique:' . Symptoms::class,
             'name'      => 'required | string'
-            
         ]);
 
         $data = $request->only('code', 'name');
@@ -55,9 +54,25 @@ class SymptomsController extends Controller
             ]);
         }
 
+        if ($request->has('code') && $request->code != $symptom->code) {
+            $code = $this->checkCode($request->code);
+            if ($code) {
+                return response([
+                    'message' => 'Code already taken!'
+                ]);
+            }
+            $data['code'] = $request->code;
+        }
+
         $symptom->update($data);
 
         return response($symptom);
+    }
+
+    private function checkCode($code)
+    {
+        $symptom = Symptoms::where('code', $code)->first();
+        return $symptom;
     }
 
     public function destroy($id)

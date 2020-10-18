@@ -55,9 +55,25 @@ class RolesController extends Controller
             ]);
         }
 
+        if ($request->has('code') && $request->code != $role->code) {
+            $code = $this->checkCode($request->code);
+            if ($code) {
+                return response([
+                    'message' => 'Code already taken!'
+                ]);
+            }
+            $data['code'] = $request->code;
+        }
+
         $role->update($data);
 
         return response($role);
+    }
+
+    private function checkCode($code)
+    {
+        $role = Roles::where('code', $code)->first();
+        return $role;
     }
 
     public function destroy($id)
