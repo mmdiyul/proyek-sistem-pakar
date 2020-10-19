@@ -80,5 +80,23 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->put('/{id}', 'UserController@update');
             $router->delete('/{id}', 'UserController@destroy');
         });
+
+        // diseaseRules
+        $router->group(['prefix' => 'disease-rules'], function () use ($router) {
+            $router->get('/', 'DiseaseRulesController@index');
+            $router->get('/{id}', 'DiseaseRulesController@show');
+            $router->post('/', 'DiseaseRulesController@store');
+            $router->put('/{id}', 'DiseaseRulesController@update');
+            $router->delete('/{id}', 'DiseaseRulesController@destroy');
+        });
+    
+        // diseaseRules
+        $router->group(['prefix' => 'users'], function () use ($router) {
+            $router->get('/', 'UserController@index');
+            $router->get('/{id}', 'UserController@show');
+            $router->post('/', 'UserController@store');
+            $router->put('/{id}', 'UserController@update');
+            $router->delete('/{id}', 'UserController@destroy');
+        });
     });
 });
