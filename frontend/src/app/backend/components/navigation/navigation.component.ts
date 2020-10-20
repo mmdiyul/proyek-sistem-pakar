@@ -26,7 +26,7 @@ export class NavigationComponent {
     private auth: AuthService,
     private helper: HelpersService
   ) {
-    this.currentUser = helper.currentUser();
+    this.currentUser = this.helper.currentUser();
   }
 
   logout() {
