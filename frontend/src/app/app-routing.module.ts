@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'backend',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./backend/backend.module').then(m => m.BackendModule)
   }
 ];
