@@ -53,4 +53,29 @@ class AuthController extends Controller
 
         return JWT::encode($payload, env('JWT_SECRET'));
     }
+
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            'fullname'      => 'required | string',
+            'username'      => 'required | string | unique:' . User::class,
+            'email'         => 'required | email | unique:' . User::class,
+            'password'      => 'required | string',
+            're_password'   => 'required | string'
+        ]);
+
+        if ($request->password != $request->re_password) {
+            return response([
+                'message' => 'Password confirmation must be same with password!'
+            ]);
+        }
+
+        $data = $request->only('fullname', 'username', 'email');
+        $data['password'] = Hash::make($request->password);
+        $data['role_id'] = 2;
+        
+        $user = User::create($data);
+
+        return response($user, 201);
+    }
 }

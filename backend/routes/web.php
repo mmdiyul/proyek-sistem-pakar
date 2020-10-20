@@ -23,6 +23,7 @@ $router->get('/api', function () {
 
 $router->group(['prefix' => 'auth'], function () use ($router) {
     $router->post('/login', 'AuthController@authenticate');
+    $router->post('/register', 'AuthController@register');
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
