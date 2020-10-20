@@ -98,5 +98,23 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->put('/{id}', 'UserController@update');
             $router->delete('/{id}', 'UserController@destroy');
         });
+
+        // diagnosisHistory
+        $router->group(['prefix' => 'diagnosis-history'], function () use ($router) {
+            $router->get('/', 'DiagnosisHistoryController@index');
+            $router->get('/{id}', 'DiagnosisHistoryController@show');
+            $router->post('/', 'DiagnosisHistoryController@store');
+            $router->put('/{id}', 'DiagnosisHistoryController@update');
+            $router->delete('/{id}', 'DiagnosisHistoryController@destroy');
+        });
+    
+        // diagnosisHistory
+        $router->group(['prefix' => 'users'], function () use ($router) {
+            $router->get('/', 'UserController@index');
+            $router->get('/{id}', 'UserController@show');
+            $router->post('/', 'UserController@store');
+            $router->put('/{id}', 'UserController@update');
+            $router->delete('/{id}', 'UserController@destroy');
+        });
     });
 });
