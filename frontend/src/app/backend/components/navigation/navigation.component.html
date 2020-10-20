@@ -22,10 +22,18 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>&nbsp;Sistem Pakar Kucing</span>
-      <button mat-icon-button class="ml-auto">
-        <mat-icon>exit_to_app</mat-icon>
+      <button mat-button class="ml-auto btn-pakar" [matMenuTriggerFor]="menu">
+        {{ currentUser.fullname }}
+        <mat-icon>expand_more</mat-icon>
       </button>
+      <mat-menu #menu xPosition="before">
+        <button mat-menu-item (click)="logout()" class="btn-pakar">
+          <mat-icon>exit_to_app</mat-icon> Log Out
+        </button>
+      </mat-menu>
     </mat-toolbar>
+
     <ng-content></ng-content>
+
   </mat-sidenav-content>
 </mat-sidenav-container>

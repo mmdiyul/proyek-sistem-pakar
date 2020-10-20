@@ -16,3 +16,7 @@ a.active {
   top: 0;
   z-index: 1;
 }
+
+.btn-pakar:focus {
+  outline: none;
+}
