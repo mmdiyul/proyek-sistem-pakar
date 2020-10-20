@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
         this.helper.sbSuccess('Register success!');
         this.login();
       }, (err) => {
-        this.helper.sbError(err.message);
+        this.helper.sbError(err.message ? err.message : err.username ? err.username : err.email ? err.email : null);
       })
   }
 
