@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Register } from './register';
 
 export interface Login {
   user: any;
@@ -38,5 +39,10 @@ export class AuthService {
     localStorage.removeItem(this.localUser);
     localStorage.removeItem(this.localToken);
     this.router.navigate(['login']);
+  }
+
+  register(data: Register) {
+    const url = '/auth/register';
+    return this.http.post<any>(url, data);
   }
 }
