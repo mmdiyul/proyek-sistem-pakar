@@ -18,7 +18,7 @@ class AuthController extends Controller
         if (!$user) {
             return response([
                 'message' => 'Email or Username is invalid!'
-            ]);
+            ], 401);
         }
 
         if (!$this->correctPassword($request->getPassword(), $user->password)) {
