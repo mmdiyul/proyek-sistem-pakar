@@ -23,4 +23,11 @@ export class HelpersService {
     }
     return null;
   }
+
+  userRolePriority() {
+    if (this.currentUser) {
+      return this.currentUser().role.priority;
+    }
+    return null;
+  }
 }
