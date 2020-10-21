@@ -6,6 +6,13 @@
     <mat-toolbar color="primary" class="shadow">
       <span>Menu</span>
     </mat-toolbar>
+    <div class="d-flex flex-column align-items-center justify-content-center p-3 text-break text-center">
+      <div style="width: 120px; height: 120px;">
+        <img src="../../../../assets/user.png" alt="profile picture" class="w-100 rounded-circle border">
+      </div>
+      <strong class="mt-2">{{ currentUser.fullname }}</strong>
+      <span>{{ currentUser.role.name }}</span>
+    </div>
     <mat-nav-list>
       <a mat-list-item href="#">Link 1</a>
       <a mat-list-item href="#">Link 2</a>
@@ -23,10 +30,13 @@
       </button>
       <span>&nbsp;Sistem Pakar Kucing</span>
       <button mat-button class="ml-auto btn-pakar" [matMenuTriggerFor]="menu">
-        {{ currentUser.fullname }}
+        <mat-icon>person</mat-icon>
         <mat-icon>expand_more</mat-icon>
       </button>
       <mat-menu #menu xPosition="before">
+        <button mat-menu-item class="btn-pakar" disabled>
+          {{ currentUser.fullname }}
+        </button>
         <button mat-menu-item (click)="logout()" class="btn-pakar">
           <mat-icon>exit_to_app</mat-icon> Log Out
         </button>
