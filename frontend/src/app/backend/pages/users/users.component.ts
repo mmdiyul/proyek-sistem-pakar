@@ -16,7 +16,7 @@ import { RemoveDialogComponent } from '../../components/remove-dialog/remove-dia
 export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
 
   isLoading: boolean;
-  dataSource = [];
+  dataSource: User[];
   resultLength: number;
   unsubs = new Subject();
   displayedColumns: string[] = ['no', 'fullname', 'email', 'role', 'last_login', 'actions'];
