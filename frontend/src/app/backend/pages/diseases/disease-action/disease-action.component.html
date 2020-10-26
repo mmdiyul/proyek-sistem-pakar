@@ -1,0 +1,28 @@
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar>
+<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+  <mat-card class="card-action">
+    <span class="font-weight-bold">
+      Aksi Penyakit
+    </span>
+    <hr>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Kode Penyakit</mat-label>
+        <input matInput placeholder="Kode Gejala" formControlName="code" autocomplete="off" required>
+        <mat-error *ngIf="form.get('code').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nama Penyakit</mat-label>
+        <input matInput placeholder="Nama Gejala" formControlName="name" autocomplete="off" required>
+        <mat-error *ngIf="form.get('name').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Solusi</mat-label>
+        <textarea matInput placeholder="Solusi" formControlName="solution" rows="3" required></textarea>
+        <mat-error *ngIf="form.get('solution').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit" class="btn btn-block" color="primary" [disabled]="form.invalid">Simpan</button>
+      <button mat-raised-button class="btn btn-block" (click)="onBack()">Batal</button>
+    </form>
+  </mat-card>
+</div>
