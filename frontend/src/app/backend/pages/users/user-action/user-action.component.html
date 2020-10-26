@@ -1,0 +1,43 @@
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar>
+<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+  <mat-card class="card-action">
+    <span class="font-weight-bold">
+      Aksi Pengguna
+    </span>
+    <hr>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nama Lengkap</mat-label>
+        <input matInput placeholder="Nama Lengkap" formControlName="fullname" autocomplete="off" required>
+        <mat-error *ngIf="form.get('fullname').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email" autocomplete="off" required>
+        <mat-error *ngIf="form.get('email').hasError('required')">Required</mat-error>
+        <mat-error *ngIf="form.get('email').hasError('email')">Invalid Email!</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="Username" formControlName="username" autocomplete="off" required>
+        <mat-error *ngIf="form.get('username').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" formControlName="password" autocomplete="off" type="password" required>
+        <mat-error *ngIf="form.get('password').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Peran</mat-label>
+        <mat-select required formControlName="role_id">
+          <mat-option *ngFor="let r of roles" [value]="r.id">
+            {{r.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('role_id').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <button mat-raised-button type="submit" class="btn btn-block" color="primary" [disabled]="form.invalid">Simpan</button>
+      <button mat-raised-button class="btn btn-block" (click)="onBack()">Batal</button>
+    </form>
+  </mat-card>
+</div>
