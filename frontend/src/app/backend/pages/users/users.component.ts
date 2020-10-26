@@ -5,6 +5,8 @@ import { takeUntil } from 'rxjs/operators';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { User } from 'src/app/services/user';
 import { UserService } from '../../../services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { RemoveDialogComponent } from '../../components/remove-dialog/remove-dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -25,7 +27,8 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
     private service: UserService,
     private helper: HelpersService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -73,6 +76,28 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
         id: data[this.primaryKey]
       },
     });
+  }
+
+  remove(data: User) {
+    this.dialog
+      .open(RemoveDialogComponent)
+      .afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.service
+            .remove(data[this.primaryKey])
+            .pipe(takeUntil(this.unsubs))
+            .subscribe(
+              () => {
+                this.getData();
+                this.helper.sbSuccess(`${data[this.subject]} dihapus`);
+              },
+              (err) => {
+                this.helper.sbError(err.message);
+              }
+            );
+        }
+      });
   }
 
 }
