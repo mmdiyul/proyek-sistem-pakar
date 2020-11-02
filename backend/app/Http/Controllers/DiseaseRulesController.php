@@ -33,10 +33,11 @@ class DiseaseRulesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'disease_id'  => 'required | numeric | unique:' . DiseaseRules::class
+            'disease_id'  => 'required | numeric | unique:' . DiseaseRules::class,
+            'code'      => 'required | string | unique:' . DiseaseRules::class
         ]);
 
-        $data = $request->only('disease_id');
+        $data = $request->only('code', 'disease_id');
         $diseaseRule = DiseaseRules::create($data);
 
         return response($diseaseRule, 201);
@@ -44,7 +45,7 @@ class DiseaseRulesController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->only('disease_id');
+        $data = $request->only('code', 'disease_id');
         $diseaseRule = DiseaseRules::find($id);
 
         if (!$diseaseRule) {
@@ -53,14 +54,14 @@ class DiseaseRulesController extends Controller
             ]);
         }
 
-        if ($request->has('disease_id') && $request->disease_id != $diseaseRule->disease_id) {
-            $disease_id = $this->checkDiseaseId($request->disease_id);
-            if ($disease_id) {
+        if ($request->has('code') && $request->code != $diseaseRule->code) {
+            $code = $this->checkCode($request->code);
+            if ($code) {
                 return response([
-                    'message' => 'Disease_id already taken!'
+                    'message' => 'Code already taken!'
                 ]);
             }
-            $data['disease_id'] = $request->disease_id;
+            $data['code'] = $request->code;
         }
 
         $diseaseRule->update($data);
@@ -68,9 +69,9 @@ class DiseaseRulesController extends Controller
         return response($diseaseRule);
     }
 
-    private function checkDisease_id($disease_id)
+    private function checkCode($code)
     {
-        $diseaseRule = DiseaseRules::where('disease_id', $disease_id)->first();
+        $diseaseRule = DiseaseRules::where('code', $code)->first();
         return $diseaseRule;
     }
 
@@ -80,7 +81,7 @@ class DiseaseRulesController extends Controller
 
         if (!$diseaseRule) {
             return response([
-                'message' => 'DiseaseRule not found!'
+                'message' => 'DiseaseRules not found!'
             ]);
         }
 

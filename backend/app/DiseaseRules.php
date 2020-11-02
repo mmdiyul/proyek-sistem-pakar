@@ -11,6 +11,7 @@ class DiseaseRules extends Model
     protected $table = 'disease_rules';
 
     protected $fillable = [
+        'code',
         'disease_id'
     ];
 }
