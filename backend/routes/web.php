@@ -54,15 +54,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->put('/{id}', 'SymptomsController@update');
             $router->delete('/{id}', 'SymptomsController@destroy');
         });
-    
-        // symptoms
-        $router->group(['prefix' => 'users'], function () use ($router) {
-            $router->get('/', 'UserController@index');
-            $router->get('/{id}', 'UserController@show');
-            $router->post('/', 'UserController@store');
-            $router->put('/{id}', 'UserController@update');
-            $router->delete('/{id}', 'UserController@destroy');
-        });
 
         // diseases
         $router->group(['prefix' => 'diseases'], function () use ($router) {
@@ -71,15 +62,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('/', 'DiseasesController@store');
             $router->put('/{id}', 'DiseasesController@update');
             $router->delete('/{id}', 'DiseasesController@destroy');
-        });
-    
-        // diseases
-        $router->group(['prefix' => 'users'], function () use ($router) {
-            $router->get('/', 'UserController@index');
-            $router->get('/{id}', 'UserController@show');
-            $router->post('/', 'UserController@store');
-            $router->put('/{id}', 'UserController@update');
-            $router->delete('/{id}', 'UserController@destroy');
         });
 
         // diseaseRules
@@ -90,15 +72,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->put('/{id}', 'DiseaseRulesController@update');
             $router->delete('/{id}', 'DiseaseRulesController@destroy');
         });
-    
-        // diseaseRules
-        $router->group(['prefix' => 'users'], function () use ($router) {
-            $router->get('/', 'UserController@index');
-            $router->get('/{id}', 'UserController@show');
-            $router->post('/', 'UserController@store');
-            $router->put('/{id}', 'UserController@update');
-            $router->delete('/{id}', 'UserController@destroy');
-        });
 
         // diagnosisHistory
         $router->group(['prefix' => 'diagnosis-history'], function () use ($router) {
@@ -107,15 +80,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->post('/', 'DiagnosisHistoryController@store');
             $router->put('/{id}', 'DiagnosisHistoryController@update');
             $router->delete('/{id}', 'DiagnosisHistoryController@destroy');
-        });
-    
-        // diagnosisHistory
-        $router->group(['prefix' => 'users'], function () use ($router) {
-            $router->get('/', 'UserController@index');
-            $router->get('/{id}', 'UserController@show');
-            $router->post('/', 'UserController@store');
-            $router->put('/{id}', 'UserController@update');
-            $router->delete('/{id}', 'UserController@destroy');
         });
     });
 });
