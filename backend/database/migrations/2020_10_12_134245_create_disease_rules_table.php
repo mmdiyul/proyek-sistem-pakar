@@ -16,10 +16,12 @@ class CreateDiseaseRulesTable extends Migration
         DB::statement('CREATE TABLE `disease_rules` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
             `disease_id` int(11) NOT NULL,
+            `code` varchar(100) NOT NULL,
             `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` timestamp NULL DEFAULT NULL,
             `deleted_at` timestamp NULL DEFAULT NULL,
             PRIMARY KEY (`id`),
+            UNIQUE KEY `code` (`code`),
             KEY `disease_rules_FK` (`disease_id`),
             CONSTRAINT `disease_rules_FK` FOREIGN KEY (`disease_id`) REFERENCES `diseases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
           ) ENGINE=InnoDB DEFAULT CHARSET=utf8');
