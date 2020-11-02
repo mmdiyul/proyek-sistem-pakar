@@ -1,4 +1,4 @@
-<!-- <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar> -->
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar>
 <div class="m-4">
   <div class="bg-white w-100 p-4 shadow rounded">
     <div class="d-flex justify-content-between">
@@ -6,5 +6,72 @@
       <button mat-raised-button color="primary">Tambah Aturan</button>
     </div>
     <hr>
+    <!-- <div> -->
+      <table mat-table [dataSource]='dataSource' class="w-100">
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef> No </th>
+          <td mat-cell *matCellDef="let row; let i = index"> {{ i + 1 }} </td>
+        </ng-container>
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef> Kode Aturan Penyakit </th>
+          <td mat-cell class="cols" *matCellDef="let row"> {{ row.code }} </td>
+        </ng-container>
+        <ng-container matColumnDef="disease">
+          <th mat-header-cell *matHeaderCellDef> Nama Penyakit </th>
+          <td mat-cell class="cols" *matCellDef="let row">
+            <span *ngIf="row.disease">
+              {{ row.disease.name }}
+            </span>
+            <span *ngIf="!row.disease">
+              -
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="symptoms">
+          <th mat-header-cell *matHeaderCellDef> Nama Gejala </th>
+          <td mat-cell class="cols" *matCellDef="let row">
+            <!-- <ng-container *ngIf="row.symptoms">
+              <span *ngFor="let item of row.symptoms">
+                {{ item.name }},
+              </span>
+            </ng-container> -->
+            <!-- <ol *ngFor="let item of row.symptoms">
+              <li>
+                {{ item.name }}
+              </li>
+            </ol> -->
+            <ng-container *ngIf="row.symptoms">
+              <mat-list *ngIf="row.symptoms">
+                <mat-list-item *ngFor="let item of row.symptoms">
+                  {{ item.name }}
+                </mat-list-item>
+              </mat-list>
+            </ng-container>
+            <span *ngIf="!row.symptoms">
+              -
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Aksi </th>
+          <td mat-cell class="cols" *matCellDef="let row">
+            <button mat-icon-button [matMenuTriggerFor]="actionMenu">
+              <mat-icon>more_vert</mat-icon></button>
+            <mat-menu #actionMenu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="edit(row)">
+                <mat-icon>edit</mat-icon>
+                <span>Sunting</span>
+              </button>
+              <button mat-menu-item (click)="remove(row)">
+                <mat-icon>delete</mat-icon>
+                <span>Hapus</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    <!-- </div> -->
   </div>
 </div>
