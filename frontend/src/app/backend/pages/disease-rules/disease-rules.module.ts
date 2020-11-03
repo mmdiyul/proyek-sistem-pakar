@@ -14,6 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
+import { DiseaseRulesActionComponent } from './disease-rules-action/disease-rules-action.component';
 
 const routes: Routes = [
   {
@@ -21,10 +22,15 @@ const routes: Routes = [
     component: DiseaseRulesComponent,
     pathMatch: 'full'
   },
+  {
+    path: 'action',
+    component: DiseaseRulesActionComponent,
+    pathMatch: 'full'
+  }
 ]
 
 @NgModule({
-  declarations: [DiseaseRulesComponent],
+  declarations: [DiseaseRulesComponent, DiseaseRulesActionComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
