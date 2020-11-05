@@ -19,7 +19,7 @@ export class DiseaseRulesComponent implements OnInit, OnDestroy, AfterViewInit {
   dataSource: DiseaseRules[];
   resultLength: number;
   unsubs = new Subject();
-  displayedColumns: string[] = ['no', 'code', 'disease', 'symptoms', 'actions'];
+  displayedColumns: string[] = ['no', 'code', 'disease', 'symptoms', 'solution', 'actions'];
   private subject = 'code';
   private primaryKey = 'id';
 
