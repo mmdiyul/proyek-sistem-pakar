@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
 import { DiseaseRulesActionComponent } from './disease-rules-action/disease-rules-action.component';
+import { NgxSelectModule } from 'ngx-select-ex';
 
 const routes: Routes = [
   {
@@ -46,7 +47,8 @@ const routes: Routes = [
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    NgxSelectModule
   ]
 })
 export class DiseaseRulesModule { }

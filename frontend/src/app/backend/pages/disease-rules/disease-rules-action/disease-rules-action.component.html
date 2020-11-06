@@ -1,1 +1,57 @@
-<p>disease-rules-action works!</p>
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar>
+<div class="w-100 d-flex flex-column justify-content-center align-items-center">
+  <mat-card class="card-action">
+    <span class="font-weight-bold">
+      Aksi Aturan Penentuan Penyakit
+    </span>
+    <hr>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Kode Aturan Penyakit</mat-label>
+        <input matInput placeholder="Kode Aturan Penyakit" formControlName="code" autocomplete="off" required>
+        <mat-error *ngIf="form.get('code').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Penyakit</mat-label>
+        <mat-select required formControlName="disease_id">
+          <mat-option *ngFor="let d of diseases" [value]="d.id">
+            {{d.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('disease_id').hasError('required')">Required</mat-error>
+      </mat-form-field>
+      <div class="form-group">
+        <label for="symptoms">Gejala</label>
+        <ngx-select matInput
+          formControlName="symptoms"
+          [allowClear]="true"
+          [items]='symptoms'
+          [multiple]="true"
+          optionValueField="id" optionTextField="name"
+          [defaultValue]="symptoms"
+          required
+        >
+        </ngx-select>
+        <div class="text-danger" *ngIf="form.get('symptoms').hasError('required')">
+          Required!
+        </div>
+      </div>
+      <!-- <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Gejala</mat-label>
+        <ngx-select matInput
+          formControlName="symptoms"
+          [allowClear]="true"
+          [items]='symptoms'
+          [multiple]="true"
+          optionValueField="id" optionTextField="name"
+          [defaultValue]="symptoms"
+        >
+        </ngx-select>
+        <textarea matInput placeholder="Gejala" formControlName="symptoms" rows="3" required></textarea>
+        <mat-error *ngIf="form.get('symptoms').hasError('required')">Required</mat-error>
+      </mat-form-field> -->
+      <button mat-raised-button type="submit" class="btn btn-block" color="primary" [disabled]="form.invalid">Simpan</button>
+      <button mat-raised-button class="btn btn-block" (click)="onBack()">Batal</button>
+    </form>
+  </mat-card>
+</div>

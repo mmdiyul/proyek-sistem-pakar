@@ -6,7 +6,7 @@ import { DiseaseRules } from './disease-rules';
 @Injectable({
   providedIn: 'root'
 })
-export class DiseaseRulessService extends BaseHttpService<DiseaseRules> {
+export class DiseaseRulesService extends BaseHttpService<DiseaseRules> {
 
   constructor(
     public http: HttpClient

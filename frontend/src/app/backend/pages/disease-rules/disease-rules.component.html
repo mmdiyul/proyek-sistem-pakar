@@ -31,8 +31,8 @@
           <th mat-header-cell *matHeaderCellDef style="min-width: 30%;"> Nama Gejala </th>
           <td mat-cell class="cols" *matCellDef="let row">
             <ng-container *ngIf="row.symptoms">
-              <span *ngFor="let item of row.symptoms">
-                {{ item.name }},
+              <span *ngFor="let item of row.symptoms; let i = index">
+                {{ item.name }}<span *ngIf="i != row.symptoms.length - 1">,</span>
               </span>
             </ng-container>
             <!-- <ol *ngFor="let item of row.symptoms">

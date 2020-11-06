@@ -8,12 +8,12 @@
     <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Kode Penyakit</mat-label>
-        <input matInput placeholder="Kode Gejala" formControlName="code" autocomplete="off" required>
+        <input matInput placeholder="Kode Penyakit" formControlName="code" autocomplete="off" required>
         <mat-error *ngIf="form.get('code').hasError('required')">Required</mat-error>
       </mat-form-field>
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Nama Penyakit</mat-label>
-        <input matInput placeholder="Nama Gejala" formControlName="name" autocomplete="off" required>
+        <input matInput placeholder="Nama Penyakit" formControlName="name" autocomplete="off" required>
         <mat-error *ngIf="form.get('name').hasError('required')">Required</mat-error>
       </mat-form-field>
       <mat-form-field class="w-100" appearance="outline">

@@ -33,6 +33,15 @@ class DiseaseRulesController extends Controller
         }
 
         $diseaseRule->load('disease', 'symptoms');
+        $symptoms = [];
+
+        foreach ($diseaseRule->symptoms as $symp) {
+            $symptoms[] = $symp['id'];
+        }
+
+        unset($diseaseRule->symptoms);
+        
+        $diseaseRule->symptoms = $symptoms;
 
         return response($diseaseRule);
     }

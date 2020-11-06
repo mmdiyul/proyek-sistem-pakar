@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { RemoveDialogComponent } from '../../components/remove-dialog/remove-dialog.component';
 import { DiseaseRules } from 'src/app/services/disease-rules';
-import { DiseaseRulessService } from '../../../services/disease-rules.service';
+import { DiseaseRulesService } from '../../../services/disease-rules.service';
 import { Subject } from 'rxjs';
 import { HelpersService } from 'src/app/services/helpers.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class DiseaseRulesComponent implements OnInit, OnDestroy, AfterViewInit {
   private primaryKey = 'id';
 
   constructor(
-    private service: DiseaseRulessService,
+    private service: DiseaseRulesService,
     private helper: HelpersService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
