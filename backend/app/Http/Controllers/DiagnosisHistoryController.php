@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\DiagnosisHistorySymptoms;
 use App\DiagnosisHistory;
+use App\Diseases;
+use App\Symptoms;
 
 class DiagnosisHistoryController extends Controller
 {
     public function index()
     {
         $diagnosisHistory = DiagnosisHistory::all();
+
+        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
+
         return response([
             'length' => count($diagnosisHistory),
             'data' => $diagnosisHistory
@@ -21,11 +27,24 @@ class DiagnosisHistoryController extends Controller
     {
         $diagnosisHistory = DiagnosisHistory::find($id);
 
+        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
+
         if (!$diagnosisHistory) {
             return response([
                 'message' => 'DiagnosisHistory not found!'
             ]);
         }
+
+        $diagnosisHistory->symptoms_data = $diagnosisHistory->symptoms;
+        $symptoms = [];
+
+        foreach ($diagnosisHistory->symptoms as $symp) {
+            $symptoms[] = $symp['id'];
+        }
+
+        unset($diagnosisHistory->symptoms);
+        
+        $diagnosisHistory->symptoms = $symptoms;
 
         return response($diagnosisHistory);
     }
@@ -33,17 +52,39 @@ class DiagnosisHistoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'disease_id'  => 'required | numeric | unique:' . DiagnosisHistory::class
+            'disease_id'    => 'required | numeric | exists:' . Diseases::class . ',id',
+            'symptoms'      => 'required | array',
+            'symptoms.*'    => 'required | numeric | exists:' . Symptoms::class . ',id'
         ]);
 
         $data = $request->only('disease_id');
+        $data['created_by'] = $request->user->id;
         $diagnosisHistory = DiagnosisHistory::create($data);
+
+        if ($request->symptoms) {
+            foreach ($request->symptoms as $symptoms) {
+                $payload = [
+                    'diagnosis_history_id'  => $diagnosisHistory->id,
+                    'symptoms_id'           => $symptoms
+                ];
+
+                DiagnosisHistorySymptoms::create($payload);
+            }
+        }
+
+        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
 
         return response($diagnosisHistory, 201);
     }
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'disease_id'    => 'required | numeric | exists:' . Diseases::class . ',id',
+            'symptoms'      => 'required | array',
+            'symptoms.*'    => 'required | numeric | exists:' . Symptoms::class . ',id'
+        ]);
+
         $data = $request->only('disease_id');
         $diagnosisHistory = DiagnosisHistory::find($id);
 
@@ -52,26 +93,23 @@ class DiagnosisHistoryController extends Controller
                 'message' => 'DiagnosisHistory not found!'
             ]);
         }
-
-        if ($request->has('disease_id') && $request->disease_id != $diagnosisHistory->disease_id) {
-            $disease_id = $this->checkDiseaseId($request->disease_id);
-            if ($disease_id) {
-                return response([
-                    'message' => 'Disease_id already taken!'
-                ]);
-            }
-            $data['disease_id'] = $request->disease_id;
-        }
-
         $diagnosisHistory->update($data);
 
-        return response($diagnosisHistory);
-    }
+        if ($request->symptoms) {
+            DiagnosisHistorySymptoms::where('diagnosis_history_id', $diagnosisHistory->id)->delete();
+            foreach ($request->symptoms as $symptoms) {
+                $payload = [
+                    'diagnosis_history_id'  => $diagnosisHistory->id,
+                    'symptoms_id'           => $symptoms
+                ];
 
-    private function checkDisease_id($disease_id)
-    {
-        $diagnosisHistory = DiagnosisHistory::where('disease_id', $disease_id)->first();
-        return $diagnosisHistory;
+                DiagnosisHistorySymptoms::create($payload);
+            }
+        }
+
+        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
+
+        return response($diagnosisHistory);
     }
 
     public function destroy($id)
