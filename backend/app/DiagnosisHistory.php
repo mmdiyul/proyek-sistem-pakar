@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\DiagnosisHistorySymptoms;
 use App\Symptoms;
+use App\Diseases;
 
 class DiagnosisHistory extends Model
 {
@@ -16,6 +17,11 @@ class DiagnosisHistory extends Model
         'disease_id',
         'created_by'
     ];
+
+    public function disease()
+    {
+        return $this->belongsTo(Diseases::class, 'disease_id');
+    }
 
     public function symptoms_diagnosis_history()
     {

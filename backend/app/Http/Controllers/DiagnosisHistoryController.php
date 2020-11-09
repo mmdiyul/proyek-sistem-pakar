@@ -8,14 +8,22 @@ use App\DiagnosisHistorySymptoms;
 use App\DiagnosisHistory;
 use App\Diseases;
 use App\Symptoms;
+use App\User;
 
 class DiagnosisHistoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $diagnosisHistory = DiagnosisHistory::all();
+        $userId = $request->user->id;
+        $rolePriority = User::find($userId)->load('role')->role->priority;
+        
+        if ($rolePriority > 0) {
+            $diagnosisHistory = DiagnosisHistory::where('created_by', $userId)->get();
+        } else {
+            $diagnosisHistory = DiagnosisHistory::all();
+        }
 
-        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
+        $diagnosisHistory->load('disease', 'symptoms_diagnosis_history', 'symptoms');
 
         return response([
             'length' => count($diagnosisHistory),
@@ -27,7 +35,7 @@ class DiagnosisHistoryController extends Controller
     {
         $diagnosisHistory = DiagnosisHistory::find($id);
 
-        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
+        $diagnosisHistory->load('disease', 'symptoms_diagnosis_history', 'symptoms');
 
         if (!$diagnosisHistory) {
             return response([
@@ -72,7 +80,7 @@ class DiagnosisHistoryController extends Controller
             }
         }
 
-        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
+        $diagnosisHistory->load('disease', 'symptoms_diagnosis_history', 'symptoms');
 
         return response($diagnosisHistory, 201);
     }
@@ -107,7 +115,7 @@ class DiagnosisHistoryController extends Controller
             }
         }
 
-        $diagnosisHistory->load('symptoms_diagnosis_history', 'symptoms');
+        $diagnosisHistory->load('disease', 'symptoms_diagnosis_history', 'symptoms');
 
         return response($diagnosisHistory);
     }
