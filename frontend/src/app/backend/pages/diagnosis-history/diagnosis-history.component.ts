@@ -106,4 +106,8 @@ export class DiagnosisHistoryComponent implements OnInit {
       });
   }
 
+  selfDiagnosis(): void {
+    this.router.navigate(['/backend/self-diagnosis']);
+  }
+
 }

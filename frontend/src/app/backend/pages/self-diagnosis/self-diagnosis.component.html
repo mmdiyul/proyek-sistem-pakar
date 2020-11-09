@@ -1,9 +1,29 @@
-<!-- <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar> -->
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar>
 <div class="m-4">
   <div class="bg-white w-100 p-4 shadow rounded">
     <div class="d-flex justify-content-between">
       <h3>Diagnosa Mandiri</h3>
     </div>
     <hr>
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="form-group">
+        <label for="symptoms">Gejala</label>
+        <ngx-select matInput
+          formControlName="symptoms"
+          [allowClear]="true"
+          [items]='symptoms'
+          [multiple]="true"
+          optionValueField="id" optionTextField="name"
+          [defaultValue]="symptoms"
+          required
+        >
+        </ngx-select>
+        <div class="text-danger" *ngIf="form.get('symptoms').hasError('required')">
+          Required!
+        </div>
+      </div>
+      <button mat-raised-button type="submit" class="btn btn-block" color="primary" [disabled]="form.invalid">Simpan</button>
+      <button mat-raised-button class="btn btn-block" (click)="onBack()">Batal</button>
+    </form>
   </div>
 </div>
