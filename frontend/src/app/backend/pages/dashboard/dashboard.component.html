@@ -1,4 +1,4 @@
-<!-- <mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar> -->
+<mat-progress-bar mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-bar>
 <div class="m-4">
   <div class="bg-white w-100 p-4 shadow rounded">
     <div class="d-flex justify-content-between">
@@ -7,29 +7,29 @@
     <hr>
     <div class="row m-1">
       <div class="col p-4 rounded bg-primary shadow text-white" style="max-width: 33%; margin-right: 12px;">
-        <h1>21</h1>
+        <h1>{{statistic.diseases}}</h1>
         <span class="font-weight-bold">Penyakit</span>
       </div>
       <div class="col p-4 rounded bg-warning shadow text-white" style="max-width: 33%; margin-right: 6px; margin-left: 6px;">
-        <h1>61</h1>
+        <h1>{{statistic.symptoms}}</h1>
         <span class="font-weight-bold">Gejala</span>
       </div>
       <div class="col p-4 rounded bg-success shadow text-white" style="max-width: 33%; margin-left: 12px;">
-        <h1>124</h1>
+        <h1>{{statistic.diagnosis}}</h1>
         <span class="font-weight-bold">Diagnosa Telah Dilakukan</span>
       </div>
     </div>
     <div class="row m-1 mt-4">
       <div class="col p-4 rounded bg-danger shadow text-white" style="max-width: 33%; margin-right: 12px;">
-        <h1>55</h1>
+        <h1>{{statistic.diagnosisSick}}</h1>
         <span class="font-weight-bold">Didiagnosa Sakit</span>
       </div>
       <div class="col p-4 rounded bg-info shadow text-white" style="max-width: 33%; margin-right: 6px; margin-left: 6px;">
-        <h1>192</h1>
+        <h1>{{statistic.diagnosisHealthy}}</h1>
         <span class="font-weight-bold">Didiagnosa Sehat</span>
       </div>
       <div class="col p-4 rounded bg-secondary shadow text-white" style="max-width: 33%; margin-left: 12px;">
-        <h1>75</h1>
+        <h1>{{statistic.users}}</h1>
         <span class="font-weight-bold">Pengguna Aktif</span>
       </div>
     </div>

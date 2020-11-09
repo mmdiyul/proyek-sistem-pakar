@@ -81,5 +81,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             $router->put('/{id}', 'DiagnosisHistoryController@update');
             $router->delete('/{id}', 'DiagnosisHistoryController@destroy');
         });
+
+        // statistik
+        $router->get('statistik', 'StatistikController@statistik');
     });
 });
