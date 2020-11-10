@@ -1,16 +1,17 @@
 import numpy as np
 import mysql.connector
+import math
 
 
-class Main():
+class Main:
     def __init__(self):
-        self.mydb = mysql.connector.connect(
+        self.my_db = mysql.connector.connect(
             host="localhost",
             user="root",
             password="",
             db="sistem_pakar"
         )
-        self.my_cursor = self.mydb.cursor()
+        self.my_cursor = self.my_db.cursor()
         self.penyakit_temp = self.my_cursor.execute("SELECT * FROM diseases")
         self.penyakit_temp = self.my_cursor.fetchall()
         self.penyakit = []
@@ -39,23 +40,23 @@ class Main():
         for i in range(baris):
             idx = 1
             for j in range(1, kolom):
-                if(i == 0 and idx in self.p1):
+                if i == 0 and idx in self.p1:
                     self.rules[i][j] = 1
-                elif(i == 1 and idx in self.p2):
+                elif i == 1 and idx in self.p2:
                     self.rules[i][j] = 1
-                elif(i == 2 and idx in self.p3):
+                elif i == 2 and idx in self.p3:
                     self.rules[i][j] = 1
-                elif(i == 3 and idx in self.p4):
+                elif i == 3 and idx in self.p4:
                     self.rules[i][j] = 1
-                elif(i == 4 and idx in self.p5):
+                elif i == 4 and idx in self.p5:
                     self.rules[i][j] = 1
-                elif(i == 5 and idx in self.p6):
+                elif i == 5 and idx in self.p6:
                     self.rules[i][j] = 1
-                elif(i == 6 and idx in self.p7):
+                elif i == 6 and idx in self.p7:
                     self.rules[i][j] = 1
-                elif(i == 7 and idx in self.p8):
+                elif i == 7 and idx in self.p8:
                     self.rules[i][j] = 1
-                elif(i == 8 and idx in self.p9):
+                elif i == 8 and idx in self.p9:
                     self.rules[i][j] = 1
                 idx += 1
 
@@ -71,7 +72,6 @@ class Main():
             # Pengurangan dan kuadrat
             nilai = (self.testing - idx)**2
             nilai = np.sum(nilai)
-            import math
             nilai = math.sqrt(nilai)
             nilai = round(nilai, 3)
             print("ED For ", self.training[i][0], " : ",  nilai)
