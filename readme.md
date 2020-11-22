@@ -12,6 +12,13 @@
   - `pip install scikit-learn`
   - `pip install pandas`
   - `pip install mysql.connector`
+  - `pip install flask`
+  - `pip install flask-cors`
+  - Ubah password di file `api.py`
 - Aplikasi web :
   - Backend menggunakan `lumen`
   - Frontend menggunakan `angular`
+- Run :
+  - buka terminal, masuk folder python, jalankan `python flask__api.py`
+  - buka terminal lagi, masuk folder backend, jalankan `php -S localhost:9000 -t public`
+  - buka terminal lagi, masuk folder frontend, jalankan `ng serve`
