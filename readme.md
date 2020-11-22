@@ -9,6 +9,9 @@
 ## Teknologi yang digunakan
 
 - Perhitungan klasifikasi dengan menggunakan library yang ada di `python`
+  - `pip install scikit-learn`
+  - `pip install pandas`
+  - `pip install mysql.connector`
 - Aplikasi web :
   - Backend menggunakan `lumen`
   - Frontend menggunakan `angular`

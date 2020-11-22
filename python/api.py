@@ -14,11 +14,15 @@ class Api:
         )
         self.my_cursor = self.my_db.cursor()
         self.disease = []
+        self.symptoms = []
+
+    def knn_process(self, symptoms):
+        self.symptoms = symptoms
         self.get_disease()
         self.data_frame = pd.DataFrame()
         self.gejala_rules = None
         self.get_disease_rules_symptoms()
-        self.knn_results()
+        return self.knn_results()
     
     def get_disease(self):
         temp = self.my_cursor.execute("SELECT * FROM diseases")
@@ -79,7 +83,7 @@ class Api:
         # [3 => 1 , 2,  3 ]
         # [!= 0 => 1,3,4,5]
         # data dinamis dari web
-        predict = np.array([[1, 2, 3, 4, 5, 6, 7, 13, 23, 29, 32]]).T
+        predict = np.array([self.symptoms]).T
         #predict = np.array([[32]]).T
         res = knn.predict(predict)
         # [1,1,1,7,8,9]
@@ -111,6 +115,7 @@ class Api:
         hasil_query_res = self.my_cursor.fetchall()
         hasil_query_res = hasil_query_res[0][0]
         print(hasil_query_res)
+        return hasil_query_res
 
         # web => 1
         # SELECT * FROM disease WHERE nama_disease = "Sing dikirim python"
