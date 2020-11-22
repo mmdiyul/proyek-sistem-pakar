@@ -9,7 +9,7 @@ class Api:
         self.my_db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",
+            password="asd",
             db="sistem_pakar"
         )
         self.my_cursor = self.my_db.cursor()

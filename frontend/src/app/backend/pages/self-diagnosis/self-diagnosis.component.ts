@@ -28,14 +28,13 @@ export class SelfDiagnosisComponent implements OnInit {
 
   form: FormGroup;
   unsubs = new Subject();
-  subject = 'id';
+  subject = '';
   isLoading: boolean;
   query: any;
   symptoms: Symptoms[];
 
   createForm(): void {
     this.form = this.fb.group({
-      disease_id: [1, []],
       symptoms: [[], [Validators.required]]
     })
   }
@@ -71,10 +70,10 @@ export class SelfDiagnosisComponent implements OnInit {
       .pipe(takeUntil(this.unsubs))
       .subscribe(
         () => {
-          this.helper.sbSuccess(`${data[this.subject]} disimpan`);
+          this.helper.sbSuccess(`Diagnosa mandiri disimpan`);
           this.onBack();
         },
-        () => this.helper.sbError(`${data[this.subject]} gagal disimpan`)
+        () => this.helper.sbError(`Diagnosa mandiri gagal disimpan`)
       )
   }
 

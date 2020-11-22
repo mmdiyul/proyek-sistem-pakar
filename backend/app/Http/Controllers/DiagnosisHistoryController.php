@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use App\DiagnosisHistorySymptoms;
 use App\DiagnosisHistory;
@@ -60,12 +61,14 @@ class DiagnosisHistoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'disease_id'    => 'required | numeric | exists:' . Diseases::class . ',id',
             'symptoms'      => 'required | array',
             'symptoms.*'    => 'required | numeric | exists:' . Symptoms::class . ',id'
         ]);
 
-        $data = $request->only('disease_id');
+        $knnResult = HTTP::post('http://localhost:5000/knn', $request->all());
+        $diseaseId = $knnResult->json();
+
+        $data['disease_id'] = $diseaseId;
         $data['created_by'] = $request->user->id;
         $diagnosisHistory = DiagnosisHistory::create($data);
 
@@ -88,12 +91,14 @@ class DiagnosisHistoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'disease_id'    => 'required | numeric | exists:' . Diseases::class . ',id',
             'symptoms'      => 'required | array',
             'symptoms.*'    => 'required | numeric | exists:' . Symptoms::class . ',id'
         ]);
 
-        $data = $request->only('disease_id');
+        $knnResult = HTTP::post('http://localhost:5000/knn', $request->all());
+        $diseaseId = $knnResult->json();
+
+        $data['disease_id'] = $diseaseId;
         $diagnosisHistory = DiagnosisHistory::find($id);
 
         if (!$diagnosisHistory) {
